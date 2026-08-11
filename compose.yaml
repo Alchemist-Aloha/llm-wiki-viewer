@@ -1,0 +1,13 @@
+services:
+  wiki-viewer:
+    build: .
+    image: llm-wiki-viewer:latest
+    container_name: llm-wiki-viewer
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      - PORT=8080
+      - VAULT_PATH=/data/vault
+    volumes:
+      - ${VAULT_PATH:-/home/likun/obsidian-vault}:/data/vault:ro
