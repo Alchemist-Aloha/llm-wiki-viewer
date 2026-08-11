@@ -10,4 +10,4 @@ services:
       - PORT=8080
       - VAULT_PATH=/data/vault
     volumes:
-      - ${VAULT_PATH:-/home/likun/obsidian-vault}:/data/vault:ro
+      - ${VAULT_PATH:?Set VAULT_PATH in .env}:/data/vault:ro
