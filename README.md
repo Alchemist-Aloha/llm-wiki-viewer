@@ -10,14 +10,30 @@ Docker container.
 - Full markdown rendering with working `[[wikilinks]]` navigation, client-side search
 - Vault is mounted read-only; the app never writes
 
+## Screenshots
+
+### Desktop
+
+![LLM Wiki desktop view](docs/screenshots/desktop.png)
+
+### Mobile
+
+<img src="docs/screenshots/mobile.png" alt="LLM Wiki mobile view" width="390">
+
 ## Run
 
 ```bash
-cp .env.example .env     # adjust VAULT_PATH / PORT if needed
-docker compose up -d --build
+docker run -d \
+  --name llm-wiki-viewer \
+  --restart unless-stopped \
+  -p 12123:8080 \
+  -v /absolute/path/to/your/obsidian-vault:/data/vault:ro \
+  ghcr.io/alchemist-aloha/llm-wiki-viewer:latest
 ```
 
-Open <http://localhost:12123> (or whatever PORT you set) in your browser.
+Replace the vault path with the absolute path to your Obsidian vault, then open
+<http://localhost:12123> in your browser. Change the first port in
+`-p 12123:8080` to use a different host port.
 
 ## API
 
@@ -30,5 +46,5 @@ Open <http://localhost:12123> (or whatever PORT you set) in your browser.
 npm install
 npm run dev       # Vite dev server on :5173 (API proxying: run server separately)
 npm run build     # production frontend build -> dist/
+docker compose up -d --build  # build and run the image from source
 ```
-
