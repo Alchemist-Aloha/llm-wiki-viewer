@@ -17,7 +17,7 @@ cp .env.example .env     # adjust VAULT_PATH / PORT if needed
 docker compose up -d --build
 ```
 
-Open http://localhost:8080
+Open <http://localhost:12123> (or whatever PORT you set) in your browser.
 
 ## API
 
@@ -32,14 +32,3 @@ npm run dev       # Vite dev server on :5173 (API proxying: run server separatel
 npm run build     # production frontend build -> dist/
 ```
 
-## Moving to /opt/stacks
-
-The compose file is relocatable:
-
-```bash
-mkdir -p /opt/stacks/llm-wiki-viewer
-# copy the whole folder there, then:
-cd /opt/stacks/llm-wiki-viewer
-cp .env.example .env   # set VAULT_PATH to the real vault location
-docker compose up -d --build
-```
