@@ -949,8 +949,9 @@ input:focus-visible,
 }
 .detail {
   flex: 1;
+  overflow-x: hidden;
   overflow-y: auto;
-  padding: clamp(34px, 6vw, 86px) clamp(28px, 7vw, 110px) 96px;
+  padding: clamp(34px, 6vw, 86px) clamp(28px, 4vw, 64px) 96px;
   min-width: 0;
   scroll-behavior: smooth;
   background:
@@ -972,7 +973,7 @@ input:focus-visible,
 .note-header h2 {
   margin: 0;
   font-family: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
-  font-size: clamp(36px, 5vw, 64px);
+  font-size: clamp(34px, 4.5vw, 58px);
   font-weight: 500;
   line-height: 1.02;
   letter-spacing: -0.045em;
@@ -995,7 +996,7 @@ input:focus-visible,
 }
 .note,
 .article-loading {
-  width: min(100%, 780px);
+  width: min(100%, 1180px);
   margin: 0 auto;
 }
 .note-header {
@@ -1053,9 +1054,12 @@ a.src:hover {
   text-decoration: none;
 }
 .content {
-  max-width: 70ch;
   line-height: 1.78;
   font-size: 16px;
+}
+.content > :not(table, pre) {
+  max-width: 70ch;
+  margin-inline: auto;
 }
 .content h1,
 .content h2,
@@ -1102,6 +1106,7 @@ a.src:hover {
   border-collapse: collapse;
   margin: 20px 0;
   display: block;
+  width: 100%;
   max-width: 100%;
   overflow-x: auto; /* wide tables scroll inside instead of widening the page */
 }
