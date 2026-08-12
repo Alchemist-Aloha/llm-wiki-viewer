@@ -5,7 +5,8 @@ import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const VAULT = process.env.VAULT_PATH || '/data/vault'
+const VAULT = path.resolve(process.env.VAULT_PATH || '/data/vault')
+const HOST = process.env.HOST || '0.0.0.0'
 const PORT = Number(process.env.PORT || 8080)
 const WIKI_DIRS = new Set(['entities', 'concepts', 'comparisons', 'queries', 'raw'])
 const META_FILES = new Set(['index.md', 'log.md', 'SCHEMA.md'])
@@ -94,11 +95,9 @@ app.get('/api/pages', async () => ({ pages: await getPages() }))
 
 app.get('/api/page/*', async (req, reply) => {
   const slug = req.params['*']
-  if (!/^[\w./-]+$/.test(slug) || slug.includes('..')) {
-    return reply.code(400).send({ error: 'bad slug' })
-  }
   const file = path.resolve(VAULT, `${slug}.md`)
-  if (!file.startsWith(VAULT + path.sep)) {
+  const relative = path.relative(VAULT, file)
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
     return reply.code(400).send({ error: 'bad slug' })
   }
   try {
@@ -125,4 +124,4 @@ app.setNotFoundHandler((req, reply) => {
   return reply.sendFile('index.html')
 })
 
-app.listen({ host: '0.0.0.0', port: PORT })
+app.listen({ host: HOST, port: PORT })
