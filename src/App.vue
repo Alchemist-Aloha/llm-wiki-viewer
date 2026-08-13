@@ -1057,10 +1057,6 @@ a.src:hover {
   line-height: 1.78;
   font-size: 16px;
 }
-.content > :not(table, pre) {
-  max-width: 70ch;
-  margin-inline: auto;
-}
 .content h1,
 .content h2,
 .content h3 {
