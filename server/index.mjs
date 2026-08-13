@@ -70,12 +70,13 @@ async function scan() {
       tags: normArr(data.tags),
       updated: data.updated || mtime,
       created: data.created || null,
+      mtime,
       layer: wikiManaged ? top : r.includes('/') ? top : 'root',
       wikiManaged,
       excerpt,
     })
   }
-  out.sort((a, b) => String(b.updated).localeCompare(String(a.updated)))
+  out.sort((a, b) => String(b.mtime).localeCompare(String(a.mtime)))
   return out
 }
 
